@@ -9,7 +9,7 @@ import pytz
 import uuid
 from datetime import datetime
 
-# Set your AWS region
+# Set your AWS region bbbbb
 region_name = 'us-east-1'
 ist = pytz.timezone('Asia/Kolkata')
 current_time = datetime.now(ist).isoformat()
