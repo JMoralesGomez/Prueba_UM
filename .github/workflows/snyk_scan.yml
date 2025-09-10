@@ -12,6 +12,4 @@ jobs:
         with:
           command: code test
          
-        continue-on-error: false   
-          
-#comentario
+        continue-on-error: false 
