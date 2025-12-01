@@ -1,0 +1,44 @@
+import os
+import pickle
+import subprocess
+import requests
+
+# 1) Carga de datos sin validar (deserialización insegura)
+def load_user_data(file_path):
+    with open(file_path, "rb") as f:
+        # Uso de pickle.loads en datos no confiables
+        return pickle.load(f)
+
+# 2) Uso de subprocess con shell=True y entrada no saneada
+def run_user_command(cmd):
+    # concatena directamente entrada externa -> riesgo de inyección de comandos
+    subprocess.run(f"echo Ejecutando: {cmd} && {cmd}", shell=True)
+
+# 3) Petición HTTP con verificación TLS deshabilitada
+def fetch_resource(url):
+    # verify=False desactiva la verificación del certificado TLS
+    resp = requests.get(url, verify=False)
+    return resp.text
+
+def main():
+    # Fuente externa: variable de entorno y archivo en /tmp
+    file_path = os.environ.get("USER_DATA_FILE", "/tmp/user.data")
+    cmd = os.environ.get("USER_CMD", "ls -la /tmp")
+    url = os.environ.get("RESOURCE_URL", "https://example.com")
+
+    try:
+        data = load_user_data(file_path)
+        print("Datos cargados:", data)
+    except Exception as e:
+        print("Error cargando datos:", e)
+
+    run_user_command(cmd)
+
+    try:
+        content = fetch_resource(url)
+        print("Recurso obtenido (primeros 200 caracteres):", content[:200])
+    except Exception as e:
+        print("Error obteniendo recurso:", e)
+
+if __name__ == "__main__":
+    main()
