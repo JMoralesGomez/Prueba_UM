@@ -4,7 +4,7 @@
 # Esto permite que se sigan redirecciones maliciosas sin validación
 # Requiere que esta versión vulnerable esté en requirements.txt
 #import requests  # versión vulnerable debe estar definida en requirements.txt
-#import requests  # versión vulnerable debe estar definida en requirements.txt
+
 import boto3
 import pytz
 import uuid
