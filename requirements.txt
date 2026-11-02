@@ -1,0 +1,7 @@
+# Dependencia vulnerable intencional para el laboratorio:
+# CVE-2018-18074 afecta a Requests anteriores a 2.20.0.
+requests==2.19.1
+
+# Dependencias adicionales de la aplicación
+boto3
+pytz
